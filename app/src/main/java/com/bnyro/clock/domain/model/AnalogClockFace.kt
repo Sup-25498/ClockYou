@@ -1,7 +1,6 @@
 package com.bnyro.clock.domain.model
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import com.bnyro.clock.R
 
 sealed class AnalogClockFace(
@@ -15,7 +14,7 @@ sealed class AnalogClockFace(
 ) {
 
     object System : AnalogClockFace(
-        name = R.string.system_analog_widget
+        name = "System"
     )
 
     object Classic76 : AnalogClockFace(
