@@ -70,6 +70,7 @@ fun AnalogClockFace.displayedName(): String =
     stringResource(
         when (this) {
             AnalogClockFace.System -> R.string.system_analog_widget
+            AnalogClockFace.Default -> R.string.default_analog_widget
             else -> return name
         }
     )
