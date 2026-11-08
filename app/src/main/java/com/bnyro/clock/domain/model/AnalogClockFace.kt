@@ -1,6 +1,7 @@
 package com.bnyro.clock.domain.model
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.bnyro.clock.R
 
 sealed class AnalogClockFace(
