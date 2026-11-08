@@ -14,7 +14,7 @@ sealed class AnalogClockFace(
 ) {
 
     object System : AnalogClockFace(
-        name = "System"
+        name = R.string.system_analog_widget
     )
 
     object Classic76 : AnalogClockFace(
