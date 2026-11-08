@@ -15,10 +15,10 @@ sealed class AnalogClockFace(
 
     object Default : AnalogClockFace(
         name = "Default",
-        dial = R.drawable.dial,
-        hourHand = R.drawable.hour_hand,
-        minuteHand = R.drawable.minute_hand,
-        secondHand = R.drawable.second_hand
+        dial = R.clock_drawable.dial,
+        hourHand = R.drawable.clock_hour_hand,
+        minuteHand = R.drawable.clock_minute_hand,
+        secondHand = R.drawable.clock_second_hand
     )
 
     object System : AnalogClockFace(
