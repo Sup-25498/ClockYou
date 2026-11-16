@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,6 +19,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -43,18 +48,28 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
     var selectedColor by rememberSaveable(color) { mutableIntStateOf(color) }
     val preset = LabelColor.entries.firstOrNull { it.argb == color }
 
-    ListItem(
-        headlineContent = { Text(stringResource(R.string.label_color)) },
-        supportingContent = { Text(stringResource(preset?.label ?: R.string.custom_color)) },
-        leadingContent = {
-            Box(Modifier.size(24.dp).background(resolveLabelColor(color), CircleShape))
-        },
-        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-        modifier = Modifier.clickable {
+    Button(
+        onClick = {
             selectedColor = color
             showPalette = true
-        }
-    )
+        },
+         colors = ButtonDefaults.buttonColors(
+             containerColor = color.copy(alpha = 0.5f),
+             contentColor = if (color.luminance() < 0.5f) {
+                 Color.White
+             } else {
+                 Color.Black
+             }
+         )
+     ) {
+         Row(
+             verticalAlignment = Alignment.CenterVertically,
+             horizontalArrangement = Arrangement.spacedBy(8.dp)
+         ) { 
+             Box(Modifier.size(16.dp).background(resolveLabelColor(color), CircleShape))
+             Text(text = stringResource(R.string.label_color) + ": " + stringResource(preset?.label ?: R.string.custom_color))
+         }
+     }
 
     if (showPalette) {
         AlertDialog(
