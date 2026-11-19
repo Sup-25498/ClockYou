@@ -3,6 +3,7 @@ package com.bnyro.clock.presentation.components
 import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -47,8 +49,14 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
         headlineContent = { Text(stringResource(R.string.label_color)) },
         supportingContent = { Text(stringResource(preset?.label ?: R.string.custom_color)) },
         leadingContent = {
-            Box(Modifier.size(24.dp).background(resolveLabelColor(color), CircleShape))
-        },
+            Box(Modifier.size(24.dp)
+                .background(resolveLabelColor(color), CircleShape)
+                .border(1.dp, if (resolveLabelColor(color).luminance() < 0.5f) { 
+                    Color.White.copy(alpha = 0.5f) 
+                        } else {
+                    Color.Black.copy(alpha = 0.5f)
+                        }, CircleShape
+                )
         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
         modifier = Modifier.clickable {
             selectedColor = color
@@ -132,4 +140,4 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
             onDismissRequest = { showCustomColor = false }
         )
     }
-}
+        }
