@@ -140,4 +140,4 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
             onDismissRequest = { showCustomColor = false }
         )
     }
-        }
+}
