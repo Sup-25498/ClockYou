@@ -57,6 +57,8 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
                     Color.Black.copy(alpha = 0.5f)
                         }, CircleShape
                 )
+            )
+        },
         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
         modifier = Modifier.clickable {
             selectedColor = color
